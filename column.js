@@ -1,6 +1,5 @@
 export default class Column {
-    constructor(columnNumber) {
-        this.columnNumber = columnNumber;
+    constructor() {
         this.columnArray = [null, null, null, null, null, null];
     }
 
