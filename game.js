@@ -3,6 +3,7 @@ export default class Game {
         this.player1Name = player1Name;
         this.player2Name = player2Name;
         this.currentPlayer = 1;
+        this.columns = []
     }
 
     getName() {
@@ -15,5 +16,10 @@ export default class Game {
         } else {
             this.currentPlayer = 1;
         }
+    }
+    populateGame(column){
+      for(let i =0; i < 6; i++){
+        this.columns.push(column)
+      }
     }
 }
