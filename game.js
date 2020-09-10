@@ -22,14 +22,18 @@ export default class Game {
 
     playInColumn(columnIndex) {
         this.columns[columnIndex].add(this.currentPlayer);
-        if (this.currentPlayer === 1) {
-            this.currentPlayer = 2;
-        } else {
+        if (this.currentPlayer === 2) {
             this.currentPlayer = 1;
+        } else {
+            this.currentPlayer = 2;
         }
     }
 
     getTokenAt(rowIndex, columnIndex) {
         return this.columns[columnIndex].getTokenAt(rowIndex);
+    }
+
+    isColumnFull(columnIndex) {
+        return this.columns[columnIndex].isFull();
     }
 }

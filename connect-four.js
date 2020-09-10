@@ -7,45 +7,54 @@ const newGameBtn = document.getElementById("new-game");
 const clickTargets = document.getElementById("click-targets");
 
 const disableGame = function () {
-	if (player1Input.value && player2Input.value) {
-		newGameBtn.disabled = false;
-	} else {
-		newGameBtn.disabled = true;
-	}
+    if (player1Input.value && player2Input.value) {
+        newGameBtn.disabled = false;
+    } else {
+        newGameBtn.disabled = true;
+    }
 };
 
 const updateUI = function () {
-	if (game) {
-		document
-			.getElementById("board-holder")
-			.classList.remove("is-invisible");
+    if (game) {
+        document
+            .getElementById("board-holder")
+            .classList.remove("is-invisible");
 
-		if (game.currentPlayer === 1) {
-			clickTargets.classList.remove("black");
-			clickTargets.classList.add("red");
-		} else {
-			clickTargets.classList.remove("red");
-			clickTargets.classList.add("black");
-		}
-	} else {
-		document.getElementById("board-holder").classList.add("is-invisible");
-	}
-	for (let i = 0; i < 5; i++) {
-		for (let j = 0; j <= 6; j++) {
-			let square = document.getElementById(`square-${i}-${j}`);
-			console.log(square);
-			square.innerHTML = "";
-			if (game.getTokenAt(i, j) === 1) {
-				let div = document.createElement("div");
-				div.setAttribute("class", "token black");
-				square.appendChild(div);
-			} else if (game.getTokenAt(i, j) === 2) {
-				let div = document.createElement("div");
-				div.setAttribute("class", "token red");
-				square.appendChild(div);
-			}
-		}
-	}
+        if (game.currentPlayer === 1) {
+            clickTargets.classList.remove("black");
+            clickTargets.classList.add("red");
+        } else {
+            clickTargets.classList.remove("red");
+            clickTargets.classList.add("black");
+        }
+    } else {
+        document.getElementById("board-holder").classList.add("is-invisible");
+    }
+    for (let i = 0; i <= 5; i++) {
+        for (let j = 0; j <= 6; j++) {
+            let square = document.getElementById(`square-${i}-${j}`);
+            console.log(square);
+            square.innerHTML = "";
+            if (game.getTokenAt(i, j) === 1) {
+                let div = document.createElement("div");
+                div.setAttribute("class", "token black");
+                square.appendChild(div);
+            } else if (game.getTokenAt(i, j) === 2) {
+                let div = document.createElement("div");
+                div.setAttribute("class", "token red");
+                square.appendChild(div);
+            }
+        }
+    }
+
+    for (let i = 0; i <= 6; i++) {
+        let columnId = document.getElementById(`column-${i}`);
+        if (game.isColumnFull(i)) {
+            columnId.classList.add("full");
+        } else {
+            columnId.classList.remove("full");
+        }
+    }
 };
 
 player1Input.addEventListener("keyup", disableGame);
@@ -53,18 +62,18 @@ player1Input.addEventListener("keyup", disableGame);
 player2Input.addEventListener("keyup", disableGame);
 
 newGameBtn.addEventListener("click", (e) => {
-	game = new Game(player1Input.value, player2Input.value);
-	player1Input.value = "";
-	player2Input.value = "";
-	disableGame();
-	updateUI();
+    game = new Game(player1Input.value, player2Input.value);
+    player1Input.value = "";
+    player2Input.value = "";
+    disableGame();
+    updateUI();
 });
 
 clickTargets.addEventListener("click", (e) => {
-	const clickedColumn = Number(event.target.id.slice(7));
-	if (event.target.id.includes("column-")) {
-		game.playInColumn(clickedColumn);
-	}
-	console.log(game);
-	updateUI();
+    const clickedColumn = Number(event.target.id.slice(7));
+    if (event.target.id.includes("column-")) {
+        game.playInColumn(clickedColumn);
+    }
+    console.log(game);
+    updateUI();
 });
