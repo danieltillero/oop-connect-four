@@ -14,10 +14,15 @@ export default class Game {
             new Column(5),
             new Column(6),
         ];
+        this.winnerNumber = 0;
     }
 
     getName() {
-        return `${this.player1Name} vs. ${this.player2Name}`;
+        if (this.winnerNumber === 3) {
+            return `${this.player1Name} ties with ${this.player2Name}`;
+        } else {
+            return `${this.player1Name} vs. ${this.player2Name}`;
+        }
     }
 
     playInColumn(columnIndex) {
@@ -26,6 +31,22 @@ export default class Game {
             this.currentPlayer = 1;
         } else {
             this.currentPlayer = 2;
+        }
+
+        this.checkForTie();
+    }
+
+    checkForTie() {
+        let columnIndex = 0;
+        while (columnIndex <= 6) {
+            if (this.isColumnFull(columnIndex)) {
+                columnIndex++;
+            } else {
+                break;
+            }
+            if (columnIndex > 6) {
+                this.winnerNumber = 3;
+            }
         }
     }
 

@@ -5,6 +5,7 @@ const player1Input = document.getElementById("player-1-name");
 const player2Input = document.getElementById("player-2-name");
 const newGameBtn = document.getElementById("new-game");
 const clickTargets = document.getElementById("click-targets");
+const gameName = document.getElementById("game-name");
 
 const disableGame = function () {
     if (player1Input.value && player2Input.value) {
@@ -20,6 +21,10 @@ const updateUI = function () {
             .getElementById("board-holder")
             .classList.remove("is-invisible");
 
+        gameName.innerHTML = game.getName().toUpperCase();
+        console.log(game.winnerNumber);
+        gameName.style.textAlign = "center";
+
         if (game.currentPlayer === 1) {
             clickTargets.classList.remove("black");
             clickTargets.classList.add("red");
@@ -33,7 +38,6 @@ const updateUI = function () {
     for (let i = 0; i <= 5; i++) {
         for (let j = 0; j <= 6; j++) {
             let square = document.getElementById(`square-${i}-${j}`);
-            console.log(square);
             square.innerHTML = "";
             if (game.getTokenAt(i, j) === 1) {
                 let div = document.createElement("div");
@@ -74,6 +78,5 @@ clickTargets.addEventListener("click", (e) => {
     if (event.target.id.includes("column-")) {
         game.playInColumn(clickedColumn);
     }
-    console.log(game);
     updateUI();
 });
