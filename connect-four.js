@@ -75,5 +75,6 @@ clickTargets.addEventListener("click", (e) => {
     if (event.target.id.includes("column-")) {
         game.playInColumn(clickedColumn);
     }
+    console.log(game);
     updateUI();
 });
