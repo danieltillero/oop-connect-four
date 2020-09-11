@@ -1,12 +1,20 @@
 import Game from "./game.js";
 import GameJsonSerializer from "./game-state/game-json-serializer.js";
+import GameJsonDeserializer from "./game-state/game-json-deserializer.js";
 
 let game;
+const json = window.localStorage.getItem("game");
 const player1Input = document.getElementById("player-1-name");
 const player2Input = document.getElementById("player-2-name");
 const newGameBtn = document.getElementById("new-game");
 const clickTargets = document.getElementById("click-targets");
 const gameName = document.getElementById("game-name");
+
+if (json) {
+	const deserializer = new GameJsonDeserializer(json);
+	game = deserializer.deserialize();
+	updateUI();
+}
 
 const disableGame = function () {
 	if (player1Input.value && player2Input.value) {
@@ -16,7 +24,7 @@ const disableGame = function () {
 	}
 };
 
-const updateUI = function () {
+function updateUI() {
 	if (game) {
 		document
 			.getElementById("board-holder")
@@ -57,9 +65,7 @@ const updateUI = function () {
 			columnId.classList.remove("full");
 		}
 	}
-	let serializer = new GameJsonSerializer(game);
-	localStorage.setItem("game", serializer.serialize());
-};
+}
 
 player1Input.addEventListener("keyup", disableGame);
 
@@ -80,4 +86,6 @@ clickTargets.addEventListener("click", (e) => {
 	}
 	console.log(game);
 	updateUI();
+	let serializer = new GameJsonSerializer(game);
+	localStorage.setItem("game", serializer.serialize());
 });
