@@ -82,6 +82,7 @@ export default class Game {
 				this.columns.slice(0, 4),
 				this.columns.slice(1, 5),
 				this.columns.slice(2, 6),
+				this.columns.slice(3, 7),
 			];
 			console.log("Sliced Columns: ", slicedColumns);
 

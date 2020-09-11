@@ -6,8 +6,7 @@ export default class RowWinInspector {
 	}
 
 	inspect() {
-		for (let i = 5; i >= 0; i--) {
-			console.log("columns[3]", this.columns[3]);
+		for (let i = 0; i < 6; i++) {
 			let token1 = this.columns[0].getTokenAt(i);
 			let token2 = this.columns[1].getTokenAt(i);
 			let token3 = this.columns[2].getTokenAt(i);
@@ -21,9 +20,8 @@ export default class RowWinInspector {
 				token3 === token4
 			) {
 				return token1;
-			} else {
-				return 0;
 			}
 		}
+		return 0;
 	}
 }
