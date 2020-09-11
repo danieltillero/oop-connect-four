@@ -22,5 +22,10 @@ export default class Column {
         } else {
             return false;
         }
+
+    }
+    //stopped here
+    toString(){
+        return this.columnArray.join(' ')
     }
 }
